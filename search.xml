@@ -4,6 +4,12 @@
     <title><![CDATA[JAVA Collection API 中的表]]></title>
     <url>%2F2017%2Fcollection-list%2F</url>
     <content type="text"><![CDATA[Collection接口 Collection接口扩展了Iterable接口，实现Iterable接口的类拥有增强for循环，都可以使用forEach进行循环遍历123456789public interface Collection&lt;E&gt; extends Iterable&lt;E&gt; &#123; int size(); boolean isEmpty(); void clear(); boolean contains(Object o); Iterator&lt;E&gt; iterator(); boolean add(E e); boolean remove(Object o); &#125; Iterator接口1234567public interface Iterator&lt;E&gt; &#123; boolean hasNext(); E next(); default void remove() &#123; throw new UnsupportedOperationException(&quot;remove&quot;); &#125;&#125; Iterator的remove方法主要优点在于：Collection的remove方法必须先找出需要删除的项。在迭代集合时如果删除会抛出ConcurrentModificationException 增强for循环java中的增强for循环实际上编译器会重写成如下所示：1234567891011List&lt;String&gt; list = new ArrayList&lt;&gt;();list.add(&quot;abc&quot;);for (String s : list) &#123; System.out.println(s);&#125;//等同于上面增强for循环写法Iterator&lt;String&gt; it = list.iterator();while (it.hasNext()) &#123; String s = it.next(); System.out.println(s);&#125;]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>Collections</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Hello World]]></title>
