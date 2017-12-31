@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.iwyy.top/about/index.html</loc>
+    
+    <lastmod>2017-12-31T04:17:40.425Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.iwyy.top/tags/index.html</loc>
+    
+    <lastmod>2017-12-31T04:17:39.354Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.iwyy.top/categories/index.html</loc>
+    
+    <lastmod>2017-12-31T04:17:38.070Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.iwyy.top/2017/collection-list/</loc>
     
     <lastmod>2017-12-30T11:36:17.401Z</lastmod>
@@ -9,30 +30,9 @@
   </url>
   
   <url>
-    <loc>http://www.iwyy.top/about/index.html</loc>
-    
-    <lastmod>2017-12-21T08:03:07.960Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.iwyy.top/tags/index.html</loc>
-    
-    <lastmod>2017-12-21T06:01:03.923Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.iwyy.top/2017/hello-world/</loc>
     
     <lastmod>2017-12-21T05:48:53.785Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.iwyy.top/categories/index.html</loc>
-    
-    <lastmod>2017-12-21T05:32:31.818Z</lastmod>
     
   </url>
   
