@@ -11,5 +11,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: https://iwyy.github.io/sitemap.xml
-Sitemap: https://iwyy.github.io/baidusitemap.xml
+Sitemap: http://www.iwyy.top/sitemap.xml
+Sitemap: http://www.iwyy.top/baidusitemap.xml
