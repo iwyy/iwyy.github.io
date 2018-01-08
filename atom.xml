@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.iwyy.top/"/>
-  <updated>2018-01-07T14:15:23.043Z</updated>
+  <updated>2018-01-07T14:30:23.374Z</updated>
   <id>http://www.iwyy.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>散列</title>
+    <link href="http://www.iwyy.top/2017/hash/"/>
+    <id>http://www.iwyy.top/2017/hash/</id>
+    <published>2017-12-22T11:33:00.000Z</published>
+    <updated>2018-01-07T14:30:23.374Z</updated>
+    
+    <content type="html"><![CDATA[<p>散列表的实现常常叫做散列(hashing)。散列是一种用于以常数平均时间执行插入、删除和查找的技术。但是，那些需要元素间任何排序信息的树操作将不会得到有效的支持。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;散列表的实现常常叫做散列(hashing)。散列是一种用于以常数平均时间执行插入、删除和查找的技术。但是，那些需要元素间任何排序信息的树操作将不会得到有效的支持。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="java" scheme="http://www.iwyy.top/categories/java/"/>
+    
+    
+      <category term="数据结构" scheme="http://www.iwyy.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>表、栈和队列</title>
@@ -30,24 +56,6 @@
       &lt;h1 id=&quot;ADT&quot;&gt;&lt;a href=&quot;#ADT&quot; class=&quot;headerlink&quot; title=&quot;ADT&quot;&gt;&lt;/a&gt;ADT&lt;/h1&gt;&lt;p&gt;抽象数据类型(abstract data type,ADT)是带有一组操作的对象的集合。&lt;br&gt;对于集合ADT，可以有添加、删除、包含等操作&lt;/p&gt;
 &lt;h1 id=&quot;表ADT&quot;&gt;&lt;a href=&quot;#表ADT&quot; class=&quot;headerlink&quot; title=&quot;表ADT&quot;&gt;&lt;/a&gt;表ADT&lt;/h1&gt;&lt;h2 id=&quot;简单数组实现&quot;&gt;&lt;a href=&quot;#简单数组实现&quot; class=&quot;headerlink&quot; title=&quot;简单数组实现&quot;&gt;&lt;/a&gt;简单数组实现&lt;/h2&gt;&lt;p&gt;对表的所有操作都可以通过使用数组来实现。虽然数组是有固定容量创建的，但在需要的时候可以使用双倍的容量创建一个不同的数组。&lt;br&gt;许多情形下表是通过在末端进行插入操作的，然后只对数组访问。这种情形下数组是一种恰当的实现。然而如果发生一些插入和删除操作，特别是前端进行，那么数组不是一种好的选择。&lt;/p&gt;
 &lt;h2 id=&quot;简单链表&quot;&gt;&lt;a href=&quot;#简单链表&quot; class=&quot;headerlink&quot; title=&quot;简单链表&quot;&gt;&lt;/a&gt;简单链表&lt;/h2&gt;&lt;p&gt;为了避免插入和删除的线性开销，需要保证表可以不连续存储，否则表的每个部分都可能需要整体移动。&lt;br&gt;链表是由一系列的节点组成，这些节点不必在内存中相连，每个节点含有表元素和到包含该元素后继元素的节点的链，可以称之为next链，最后一个单元的next链引用null。&lt;br&gt;简单链表删除最后一项比较复杂，因为必须找出指向最后节点的项，把它的next链改成null，然后在更新持有最后节点的链，最好的做法是让每一个节点有一个指向它在表中的前面节点的链称之为双链表&lt;br&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://www.iwyy.top/categories/java/"/>
-    
-    
-      <category term="数据结构" scheme="http://www.iwyy.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>散列</title>
-    <link href="http://www.iwyy.top/2017/hash/"/>
-    <id>http://www.iwyy.top/2017/hash/</id>
-    <published>2017-12-22T11:33:00.000Z</published>
-    <updated>2018-01-07T14:15:44.286Z</updated>
-    
-    <summary type="html">
     
     </summary>
     
