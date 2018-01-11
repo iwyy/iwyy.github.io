@@ -10,6 +10,3 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
-
-Sitemap: http://www.iwyy.top/sitemap.xml
-Sitemap: http://www.iwyy.top/baidusitemap.xml
