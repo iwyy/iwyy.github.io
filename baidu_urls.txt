@@ -1,5 +1,5 @@
-http://www.iwyy.top/2018/fate/
-http://www.iwyy.top/2017/priority-queue/
-http://www.iwyy.top/2017/hash/
-http://www.iwyy.top/2017/list/
-http://www.iwyy.top/2017/tree/
+http://www.iwyy.top/2018/fate.html
+http://www.iwyy.top/2017/priority-queue.html
+http://www.iwyy.top/2017/list.html
+http://www.iwyy.top/2017/hash.html
+http://www.iwyy.top/2017/tree.html
