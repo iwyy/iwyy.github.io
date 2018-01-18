@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.iwyy.top/"/>
-  <updated>2018-01-13T13:10:22.744Z</updated>
+  <updated>2018-01-18T14:01:15.164Z</updated>
   <id>http://www.iwyy.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mysql使用经典案例</title>
+    <link href="http://www.iwyy.top/2018/mysql-classic-case.html"/>
+    <id>http://www.iwyy.top/2018/mysql-classic-case.html</id>
+    <published>2018-01-18T12:32:36.000Z</published>
+    <updated>2018-01-18T14:01:15.164Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="索引最佳实践"><a href="#索引最佳实践" class="headerlink" title="索引最佳实践"></a>索引最佳实践</h1><img src="/uploads/image/mcc1.jpg"><h2 id="无索引案例（添加索引没生效）"><a href="#无索引案例（添加索引没生效）" class="headerlink" title="无索引案例（添加索引没生效）"></a>无索引案例（添加索引没生效）</h2><p>索引字段类型使用<br>explain extended select uid from user where mo = 123445 limit 0,1<br>原因：索引隐式转换,mo是varchar类型,这里使用的是数字,索引使用无效（数据类型以及字符集定义不当导致）<br><a id="more"></a></p><h1 id="分页优化案例"><a href="#分页优化案例" class="headerlink" title="分页优化案例"></a>分页优化案例</h1><img src="/uploads/image/mcc2.jpg"> <img src="/uploads/image/mcc3.jpg"> <img src="/uploads/image/mcc4.jpg"><h1 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁"></a>数据库锁</h1><img src="/uploads/image/mcc5.jpg"><h2 id="ddl操作需要注意慢查询"><a href="#ddl操作需要注意慢查询" class="headerlink" title="ddl操作需要注意慢查询"></a>ddl操作需要注意慢查询</h2><img src="/uploads/image/mcc6.jpg"> <img src="/uploads/image/mcc7.jpg"><h1 id="延迟"><a href="#延迟" class="headerlink" title="延迟"></a>延迟</h1><img src="/uploads/image/mcc8.jpg"> <img src="/uploads/image/mcc9.jpg"> <img src="/uploads/image/mcc10.jpg"><h1 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h1><img src="/uploads/image/mcc11.jpg"><h1 id="cpu-100"><a href="#cpu-100" class="headerlink" title="cpu 100%"></a>cpu 100%</h1><img src="/uploads/image/mcc12.jpg"> <img src="/uploads/image/mcc13.jpg"><h1 id="conn-100"><a href="#conn-100" class="headerlink" title="conn 100%"></a>conn 100%</h1><img src="/uploads/image/mcc14.jpg"> <img src="/uploads/image/mcc15.jpg"><h1 id="iops-100"><a href="#iops-100" class="headerlink" title="iops 100%"></a>iops 100%</h1><img src="/uploads/image/mcc16.jpg"><h1 id="disk-100"><a href="#disk-100" class="headerlink" title="disk 100%"></a>disk 100%</h1><img src="/uploads/image/mcc17.jpg"><h1 id="mem-100"><a href="#mem-100" class="headerlink" title="mem 100%"></a>mem 100%</h1><img src="/uploads/image/mcc18.jpg"> <img src="/uploads/image/mcc19.jpg"><p>参考视频：<a href="https://yq.aliyun.com/webinar/play/240" target="_blank" rel="noopener">云数据库使用十大经典案例</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;索引最佳实践&quot;&gt;&lt;a href=&quot;#索引最佳实践&quot; class=&quot;headerlink&quot; title=&quot;索引最佳实践&quot;&gt;&lt;/a&gt;索引最佳实践&lt;/h1&gt;&lt;img src=&quot;/uploads/image/mcc1.jpg&quot;&gt;&lt;h2 id=&quot;无索引案例（添加索引没生效）&quot;&gt;&lt;a href=&quot;#无索引案例（添加索引没生效）&quot; class=&quot;headerlink&quot; title=&quot;无索引案例（添加索引没生效）&quot;&gt;&lt;/a&gt;无索引案例（添加索引没生效）&lt;/h2&gt;&lt;p&gt;索引字段类型使用&lt;br&gt;explain extended select uid from user where mo = 123445 limit 0,1&lt;br&gt;原因：索引隐式转换,mo是varchar类型,这里使用的是数字,索引使用无效（数据类型以及字符集定义不当导致）&lt;br&gt;
+    
+    </summary>
+    
+      <category term="sql" scheme="http://www.iwyy.top/categories/sql/"/>
+    
+    
+      <category term="mysql" scheme="http://www.iwyy.top/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>剧场版《Fate/stay night [Heaven&#39;s Feel] I.presage flower》主题曲</title>
