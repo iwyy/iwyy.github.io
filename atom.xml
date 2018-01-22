@@ -27,7 +27,26 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;索引类型&quot;&gt;&lt;a href=&quot;#索引类型&quot; class=&quot;headerlink&quot; title=&quot;索引类型&quot;&gt;&lt;/a&gt;索引类型&lt;/h1&gt;&lt;p&gt;索引由很多类型，可以为不同场景提供更好的性能，在mysql中索引是存储引擎层而不是服务器层实现的。不同存储引擎的索引工作方式也不一样，也不是所有存储引擎支持所有索引类型，其底层实现也可能不同。&lt;/p&gt;&lt;h2 id=&quot;B-Tree索引&quot;&gt;&lt;a href=&quot;#B-Tree索引&quot; class=&quot;headerlink&quot; title=&quot;B-Tree索引&quot;&gt;&lt;/a&gt;B-Tree索引&lt;/h2&gt;&lt;p&gt;使用B-Tree数据结构来存储数据，大多数mysql引擎都支持这种索引，Archive引擎是个例外。&lt;br&gt;存储引擎以不同的方式使用B-Tree索引，性能也各不同，各有优劣。&lt;br&gt;例如，MyISAM使用前缀压缩使得索引更小，但InnoDB按照原数据格式进行存储。再如MyISAM索引通过数据的屋里位置引用被索引的行，而InnoDB根据主键引用被索引的行。&lt;br&gt;B-Tree索引对如下类型的查询有效（假设：key(name,dob)）：&lt;br&gt;1、全值匹配&lt;br&gt;比如查找姓名为Allen的人，出生于1996年的人&lt;br&gt;2、匹配最左前缀&lt;br&gt;比如查找姓名为Allen的人，即只是用索引的第一列&lt;br&gt;3、匹配列前缀&lt;br&gt;比如查找所有以J开头的姓的人。这里也只使用了索引的第一列。&lt;br&gt;4、匹配范围值&lt;br&gt;比如查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列。&lt;br&gt;5、匹配某一列并范围匹配另一列&lt;br&gt;比如查找姓名Allen的人，出生1996到2005的人&lt;br&gt;B-Tree支持“值访问索引的查询”，即查询只需要访问索引，而不需要访问数据行，也叫做“覆盖索引”。&lt;br&gt;因为索引树中的节点是有序的，所以除了按值查找之外，索引还可以用order by操作。&lt;br&gt;
+      #索引类型索引类型
+索引由很多类型，可以为不同场景提供更好的性能，在mysql中索引是存储引擎层而不是服务器层实现的。不同存储引擎的索引工作方式也不一样，也不是所有存储引擎支持所有索引类型，其底层实现也可能不同。
+
+#B-TREE索引B-TREE索引
+使用B-Tree数据结构来存储数据，大多数mysql引擎都支持这种索引，Archive引擎是个例外。
+存储引擎以不同的方式使用B-Tree索引，性能也各不同，各有优劣。
+例如，MyISAM使用前缀压缩使得索引更小，但InnoDB按照原数据格式进行存储。再如MyISAM索引通过数据的屋里位置引用被索引的行，而InnoDB根据主键引用被索引的行。
+B-Tree索引对如下类型的查询有效（假设：key(name,dob)）：
+1、全值匹配
+比如查找姓名为Allen的人，出生于1996年的人
+2、匹配最左前缀
+比如查找姓名为Allen的人，即只是用索引的第一列
+3、匹配列前缀
+比如查找所有以J开头的姓的人。这里也只使用了索引的第一列。
+4、匹配范围值
+比如查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列。
+5、匹配某一列并范围匹配另一列
+比如查找姓名Allen的人，出生1996到2005的人
+B-Tree支持“值访问索引的查询”，即查询只需要访问索引，而不需要访问数据行，也叫做“覆盖索引”。
+因为索引树中的节点是有序的，所以除了按值查找之外，索引还可以用order by操作。
     
     </summary>
     
@@ -49,7 +68,11 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;索引最佳实践&quot;&gt;&lt;a href=&quot;#索引最佳实践&quot; class=&quot;headerlink&quot; title=&quot;索引最佳实践&quot;&gt;&lt;/a&gt;索引最佳实践&lt;/h1&gt;&lt;img src=&quot;/uploads/image/mcc1.jpg&quot;&gt;&lt;h2 id=&quot;无索引案例（添加索引没生效）&quot;&gt;&lt;a href=&quot;#无索引案例（添加索引没生效）&quot; class=&quot;headerlink&quot; title=&quot;无索引案例（添加索引没生效）&quot;&gt;&lt;/a&gt;无索引案例（添加索引没生效）&lt;/h2&gt;&lt;p&gt;索引字段类型使用&lt;br&gt;explain extended select uid from user where mo = 123445 limit 0,1&lt;br&gt;原因：索引隐式转换,mo是varchar类型,这里使用的是数字,索引使用无效（数据类型以及字符集定义不当导致）&lt;br&gt;
+      #索引最佳实践索引最佳实践
+[/uploads/image/mcc1.jpg]#无索引案例（添加索引没生效）无索引案例（添加索引没生效）
+索引字段类型使用
+explain extended select uid from user where mo = 123445 limit 0,1
+原因：索引隐式转换,mo是varchar类型,这里使用的是数字,索引使用无效（数据类型以及字符集定义不当导致）
     
     </summary>
     
@@ -71,7 +94,7 @@
     
     <summary type="html">
     
-      &lt;img src=&quot;/uploads/image/fate-1.jpg&quot;&gt;
+      [/uploads/image/fate-1.jpg]
     
     </summary>
     
@@ -93,7 +116,22 @@
     
     <summary type="html">
     
-      &lt;p&gt;优先队列(priority queue)&lt;br&gt;普通的队列是一种先进先出的数据结构，元素在队列尾追加，而从队列头删除。在优先队列中，元素被赋予优先级。当访问元素时，具有最高优先级的元素最先删除。优先队列具有最高级先出 （first in, largest out）的行为特征。&lt;/p&gt;&lt;h1 id=&quot;模型&quot;&gt;&lt;a href=&quot;#模型&quot; class=&quot;headerlink&quot; title=&quot;模型&quot;&gt;&lt;/a&gt;模型&lt;/h1&gt;&lt;p&gt;优先队列允许至少两种操作的数据结构：insert和deleteMin（删除最小者），它是找出、返回并删除优先队列中最小的元素。&lt;br&gt;insert等价于入队，deleteMin等价出队。&lt;/p&gt;&lt;h1 id=&quot;二叉堆&quot;&gt;&lt;a href=&quot;#二叉堆&quot; class=&quot;headerlink&quot; title=&quot;二叉堆&quot;&gt;&lt;/a&gt;二叉堆&lt;/h1&gt;&lt;h2 id=&quot;结构性质&quot;&gt;&lt;a href=&quot;#结构性质&quot; class=&quot;headerlink&quot; title=&quot;结构性质&quot;&gt;&lt;/a&gt;结构性质&lt;/h2&gt;&lt;p&gt;二叉堆是一种特殊的堆，二叉堆是完全填满的二元树（二叉树）或者是近似完全填满的二元树（二叉树）。二叉堆有两种：最大堆和最小堆。最大堆：父结点的键值总是大于或等于任何一个子节点的键值；最小堆：父结点的键值总是小于或等于任何一个子节点的键值。&lt;br&gt;&lt;img src=&quot;/uploads/image/pq-1.png&quot;&gt;&lt;br&gt;因为完全二叉树很有规律，所以它可以用一个数组标识而不需要使用链。&lt;br&gt;后面始终把堆画成树，具体实现将使用简单的数组&lt;br&gt;&lt;img src=&quot;/uploads/image/pq-2.png&quot;&gt;&lt;br&gt;一个堆结构将由一个（comparable对象的）数组和一个代表当前堆大小的整数组成。&lt;br&gt;
+      优先队列(priority queue)
+普通的队列是一种先进先出的数据结构，元素在队列尾追加，而从队列头删除。在优先队列中，元素被赋予优先级。当访问元素时，具有最高优先级的元素最先删除。优先队列具有最高级先出
+（first in, largest out）的行为特征。
+
+#模型模型
+优先队列允许至少两种操作的数据结构：insert和deleteMin（删除最小者），它是找出、返回并删除优先队列中最小的元素。
+insert等价于入队，deleteMin等价出队。
+
+#二叉堆二叉堆
+#结构性质结构性质
+二叉堆是一种特殊的堆，二叉堆是完全填满的二元树（二叉树）或者是近似完全填满的二元树（二叉树）。二叉堆有两种：最大堆和最小堆。最大堆：父结点的键值总是大于或等于任何一个子节点的键值；最小堆：父结点的键值总是小于或等于任何一个子节点的键值。
+[/uploads/image/pq-1.png]
+因为完全二叉树很有规律，所以它可以用一个数组标识而不需要使用链。
+后面始终把堆画成树，具体实现将使用简单的数组
+[/uploads/image/pq-2.png]
+一个堆结构将由一个（comparable对象的）数组和一个代表当前堆大小的整数组成。
     
     </summary>
     
@@ -115,7 +153,17 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;散列&quot;&gt;&lt;a href=&quot;#散列&quot; class=&quot;headerlink&quot; title=&quot;散列&quot;&gt;&lt;/a&gt;散列&lt;/h1&gt;&lt;p&gt;散列表的实现常常叫做散列(hashing)。散列是一种用于以常数平均时间执行插入、删除和查找的技术。但是，那些需要元素间任何排序信息的树操作将不会得到有效的支持。&lt;/p&gt;&lt;h1 id=&quot;散列表&quot;&gt;&lt;a href=&quot;#散列表&quot; class=&quot;headerlink&quot; title=&quot;散列表&quot;&gt;&lt;/a&gt;散列表&lt;/h1&gt;&lt;p&gt;散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。&lt;/p&gt;&lt;h1 id=&quot;哈希函数&quot;&gt;&lt;a href=&quot;#哈希函数&quot; class=&quot;headerlink&quot; title=&quot;哈希函数&quot;&gt;&lt;/a&gt;哈希函数&lt;/h1&gt;&lt;p&gt;给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。&lt;br&gt;所有散列函数都有如下一个基本特性：如果两个散列值是不相同的（根据同一函数），那么这两个散列值的原始输入也是不相同的。这个特性是散列函数具有确定性的结果。但另一方面，散列函数的输入和输出不是一一对应的，如果两个散列值相同，两个输入值很可能是相同的，但不绝对肯定二者一定相等（可能出现哈希碰撞）。输入一些数据计算出散列值，然后部分改变输入值，一个具有强混淆特性的散列函数会产生一个完全不同的散列值。&lt;br&gt;
+      #散列散列
+散列表的实现常常叫做散列(hashing)。散列是一种用于以常数平均时间执行插入、删除和查找的技术。但是，那些需要元素间任何排序信息的树操作将不会得到有效的支持。
+
+#散列表散列表
+散列表（Hash table，也叫哈希表），是根据关键码值(Key
+value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。
+
+#哈希函数哈希函数
+给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash)
+函数。
+所有散列函数都有如下一个基本特性：如果两个散列值是不相同的（根据同一函数），那么这两个散列值的原始输入也是不相同的。这个特性是散列函数具有确定性的结果。但另一方面，散列函数的输入和输出不是一一对应的，如果两个散列值相同，两个输入值很可能是相同的，但不绝对肯定二者一定相等（可能出现哈希碰撞）。输入一些数据计算出散列值，然后部分改变输入值，一个具有强混淆特性的散列函数会产生一个完全不同的散列值。
     
     </summary>
     
@@ -137,7 +185,19 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;ADT&quot;&gt;&lt;a href=&quot;#ADT&quot; class=&quot;headerlink&quot; title=&quot;ADT&quot;&gt;&lt;/a&gt;ADT&lt;/h1&gt;&lt;p&gt;抽象数据类型(abstract data type,ADT)是带有一组操作的对象的集合。&lt;br&gt;对于集合ADT，可以有添加、删除、包含等操作&lt;/p&gt;&lt;h1 id=&quot;表ADT&quot;&gt;&lt;a href=&quot;#表ADT&quot; class=&quot;headerlink&quot; title=&quot;表ADT&quot;&gt;&lt;/a&gt;表ADT&lt;/h1&gt;&lt;h2 id=&quot;简单数组实现&quot;&gt;&lt;a href=&quot;#简单数组实现&quot; class=&quot;headerlink&quot; title=&quot;简单数组实现&quot;&gt;&lt;/a&gt;简单数组实现&lt;/h2&gt;&lt;p&gt;对表的所有操作都可以通过使用数组来实现。虽然数组是有固定容量创建的，但在需要的时候可以使用双倍的容量创建一个不同的数组。&lt;br&gt;许多情形下表是通过在末端进行插入操作的，然后只对数组访问。这种情形下数组是一种恰当的实现。然而如果发生一些插入和删除操作，特别是前端进行，那么数组不是一种好的选择。&lt;/p&gt;&lt;h2 id=&quot;简单链表&quot;&gt;&lt;a href=&quot;#简单链表&quot; class=&quot;headerlink&quot; title=&quot;简单链表&quot;&gt;&lt;/a&gt;简单链表&lt;/h2&gt;&lt;p&gt;为了避免插入和删除的线性开销，需要保证表可以不连续存储，否则表的每个部分都可能需要整体移动。&lt;br&gt;链表是由一系列的节点组成，这些节点不必在内存中相连，每个节点含有表元素和到包含该元素后继元素的节点的链，可以称之为next链，最后一个单元的next链引用null。&lt;br&gt;简单链表删除最后一项比较复杂，因为必须找出指向最后节点的项，把它的next链改成null，然后在更新持有最后节点的链，最好的做法是让每一个节点有一个指向它在表中的前面节点的链称之为双链表&lt;br&gt;
+      #ADTADT
+抽象数据类型(abstract data type,ADT)是带有一组操作的对象的集合。
+对于集合ADT，可以有添加、删除、包含等操作
+
+#表ADT表ADT
+#简单数组实现简单数组实现
+对表的所有操作都可以通过使用数组来实现。虽然数组是有固定容量创建的，但在需要的时候可以使用双倍的容量创建一个不同的数组。
+许多情形下表是通过在末端进行插入操作的，然后只对数组访问。这种情形下数组是一种恰当的实现。然而如果发生一些插入和删除操作，特别是前端进行，那么数组不是一种好的选择。
+
+#简单链表简单链表
+为了避免插入和删除的线性开销，需要保证表可以不连续存储，否则表的每个部分都可能需要整体移动。
+链表是由一系列的节点组成，这些节点不必在内存中相连，每个节点含有表元素和到包含该元素后继元素的节点的链，可以称之为next链，最后一个单元的next链引用null。
+简单链表删除最后一项比较复杂，因为必须找出指向最后节点的项，把它的next链改成null，然后在更新持有最后节点的链，最好的做法是让每一个节点有一个指向它在表中的前面节点的链称之为双链表
     
     </summary>
     
@@ -159,8 +219,35 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;二叉树&quot;&gt;&lt;a href=&quot;#二叉树&quot; class=&quot;headerlink&quot; title=&quot;二叉树&quot;&gt;&lt;/a&gt;二叉树&lt;/h1&gt;&lt;p&gt;二叉树(binary tree)是一棵树，其中每个节点都不能有多余两个的子节点。&lt;br&gt;二叉树的一个性质是一颗平均二叉树的深度要比节点个数N小得多，这个性质有时候很重要。&lt;/p&gt;&lt;h2 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot; class=&quot;headerlink&quot; title=&quot;实现&quot;&gt;&lt;/a&gt;实现&lt;/h2&gt;&lt;p&gt;因为一个二叉树节点最多有两个子节点，所以可以保存直接链接到它们的链。树节点的声明在结构上类似于双链表的声明，在声明中，节点就是有element的信息加上两个到其他节点的引用(left和right)组成的结构&lt;br&gt;&lt;/p&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;BinaryNode&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Object element;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    BinaryNode left;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    BinaryNode right;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;
-&lt;h2 id=&quot;例子：表达式树&quot;&gt;&lt;a href=&quot;#例子：表达式树&quot; class=&quot;headerlink&quot; title=&quot;例子：表达式树&quot;&gt;&lt;/a&gt;例子：表达式树&lt;/h2&gt;&lt;p&gt;表达式树的树叶是操作数，比如：常数或者变量名，而其他的节点为操作符。由于所有的操作都是二元的，因此这棵树正好是二叉树。如下图：&lt;br&gt;&lt;img src=&quot;/uploads/image/tree-1.png&quot;&gt;&lt;br&gt;
+      #二叉树二叉树
+二叉树(binary tree)是一棵树，其中每个节点都不能有多余两个的子节点。
+二叉树的一个性质是一颗平均二叉树的深度要比节点个数N小得多，这个性质有时候很重要。
+
+#实现实现
+因为一个二叉树节点最多有两个子节点，所以可以保存直接链接到它们的链。树节点的声明在结构上类似于双链表的声明，在声明中，节点就是有element的信息加上两个到其他节点的引用(left和right)组成的结构
+
+
+1
+2
+3
+4
+5
+6
+
+
+class BinaryNode
+{
+    Object element;
+    BinaryNode left;
+    BinaryNode right;
+}
+
+
+
+
+#例子：表达式树例子：表达式树
+表达式树的树叶是操作数，比如：常数或者变量名，而其他的节点为操作符。由于所有的操作都是二元的，因此这棵树正好是二叉树。如下图：
+[/uploads/image/tree-1.png]
     
     </summary>
     
