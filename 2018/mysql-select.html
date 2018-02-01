@@ -1,0 +1,314 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="google-site-verification" content="az36BCre_XxgT9qTSa9_eJwOM54MaIlKstfU0CO4FEI"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css"><link href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css"><link href="/css/main.css" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/uploads/image/logo180.png"><link rel="icon" type="image/png" sizes="32x32" href="/uploads/image/logo64.png"><link rel="icon" type="image/png" sizes="16x16" href="/uploads/image/logo64.png"><link rel="mask-icon" href="/uploads/image/logo300.svg" color="#222"><meta name="keywords" content="iwyy,java,spring,spring cloud,spring mvc,Java后端技术,微服务架构"><link rel="alternate" href="/atom.xml" title="iwyy's Blog" type="application/atom+xml"><meta name="description" content="或许你注定难以捉摸，侧身西望，似要望断这天涯南北东西之路。不应百花之邀，不解明月之情，孑然一人，默然自语，黯然伤神，在秋风中独自泪流，没了这砌下之路。奈何我拂了一身还满，猜不透，怎知我依旧陪你看遍了那个季节的花开花落，又怎知道我的心意，云卷云舒。因为，我只想与你相伴，共天涯……"><meta property="og:type" content="website"><meta property="og:title" content="iwyy&#39;s Blog"><meta property="og:url" content="http://www.iwyy.top/about/index.html"><meta property="og:site_name" content="iwyy&#39;s Blog"><meta property="og:description" content="或许你注定难以捉摸，侧身西望，似要望断这天涯南北东西之路。不应百花之邀，不解明月之情，孑然一人，默然自语，黯然伤神，在秋风中独自泪流，没了这砌下之路。奈何我拂了一身还满，猜不透，怎知我依旧陪你看遍了那个季节的花开花落，又怎知道我的心意，云卷云舒。因为，我只想与你相伴，共天涯……"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2017-12-31T04:20:04.068Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="iwyy&#39;s Blog"><meta name="twitter:description" content="或许你注定难以捉摸，侧身西望，似要望断这天涯南北东西之路。不应百花之邀，不解明月之情，孑然一人，默然自语，黯然伤神，在秋风中独自泪流，没了这砌下之路。奈何我拂了一身还满，猜不透，怎知我依旧陪你看遍了那个季节的花开花落，又怎知道我的心意，云卷云舒。因为，我只想与你相伴，共天涯……"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"6.0.0",sidebar:{position:"left",display:"always",offset:12,b2t:!0,scrollpercent:!0,onmobile:!1},fancybox:!0,fastclick:!0,lazyload:!0,tabs:!0,motion:{enable:!0,async:!0,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://www.iwyy.top/about/"><title>mysql查询性能优化 | iwyy's Blog</title><script type="text/javascript">var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9af9ad7600513d41fd2b2ad6c4633785";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">iwyy's Blog</span> <span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description">Life is so beautiful</h1></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://www.iwyy.top/2018/mysql-select.html"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="iwyy"><meta itemprop="description" content=""><meta itemprop="image" content="/uploads/m.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="iwyy's Blog"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">mysql查询性能优化</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-31T21:52:51+08:00">2018-01-31</time> </span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/sql/" itemprop="url" rel="index"><span itemprop="name">sql</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h1 id="优化数据访问"><a href="#优化数据访问" class="headerlink" title="优化数据访问"></a>优化数据访问</h1><h2 id="是否请求了不需要的数据"><a href="#是否请求了不需要的数据" class="headerlink" title="是否请求了不需要的数据"></a>是否请求了不需要的数据</h2><p>有些查询会请求超过实际需要的数据，然后多余的数据会被应用程序丢弃。这会给mysql服务器带来额外的负担，并增加网络开销，另外也会消耗应用服务器的CPU和内存资源。<br>比如：<br>1、查询不需要的记录<br>实际页面显示10条记录，但是查询去除100条记录，解决办法查询后面使用limit 10.<br>2、多表关联时返回全部列<br>如果只需要出现的演员，千万不要按照下面的写法：<br>select <em>from actor inner join film_actor using(actor_id) inner join film using(film_id) where film.title = ‘Academy’;<br>这将返回这三个表的全部数据列。正确的写法如下：<br>select actor.</em> from actor inner join film_actor using(actor_id) inner join film using(film_id) where film.title = ‘Academy’;<br>3、总是取出全部列<br>使用select * from table 的时候需要想一想所有的列是否都是需要的，尽量抛弃这种写法<br>4、重复查询相同的数据<br>不断地重复执行相同的查询，然后每次返回完全相同的数据。比较好的方案是查询的时候将这个数据缓存起来，需要的时候从缓存中取出。</p><h2 id="mysql是否在扫描额外的记录"><a href="#mysql是否在扫描额外的记录" class="headerlink" title="mysql是否在扫描额外的记录"></a>mysql是否在扫描额外的记录</h2><p>mysql最简单的衡量查询开销的三个指标：响应时间、扫描行数、返回行数。<br>没有哪个指标能够完美的衡量查询的开销，但它们大致反映了mysql在内部执行查询时需要访问多少数据，并可以大概推算出查询运行的时间。这三个指标都会记录到mysql的慢日志中，所以检查慢日志记录是找出扫描数过多的查询的好办法。<br>1、响应时间<br>响应时间只是一个表面上的值。<br>响应时间是服务时间和排队时间的和。服务时间是指数据库处理这个查询真正花了多长时间。排队时间是指服务器因为等待某些资源而没有真正执行查询的时间–可能是等I/O操作完成，可能是等待行锁等等。<br>当看到一个查询的响应时间的时候首先问问自己这个响应时间是否是一个合理的值。<br>2、扫描的行数和返回的行数<br>在一定程度上能说明该查询找到需要的数据的效率高不高。<br>对于糟糕的查询，并不是所有的行的访问代价都是相同的，较短行的访问速度更快，因为内存中的行比磁盘中的行的访问速度要快得多。<br>理想情况扫描的行数和返回的行数应该是相同的。</p><h2 id="扫描的行数和访问类型"><a href="#扫描的行数和访问类型" class="headerlink" title="扫描的行数和访问类型"></a>扫描的行数和访问类型</h2><p>在explain语句中的type列反应了访问类型。访问类型有很多种，从全表扫描到索引扫描、范围扫描、唯一索引查询、常数引用等。<br>如果查询没有办法找到合适的访问类型，那么解决办法是加一个合适的索引，请参考另一篇文章<a href="/2018/mysql-index.html">mysql高性能索引</a><br><a id="more"></a></p><h1 id="重构查询方式"><a href="#重构查询方式" class="headerlink" title="重构查询方式"></a>重构查询方式</h1><p>目标是找到一个更优的方法活的实际需要的结果–不一定总是需要mysql获取一模一样的结果集，有时候可以将查询转换一种写法让其返回一样的结果，但性能更好。</p><h2 id="一个复杂查询还是多个简单查询"><a href="#一个复杂查询还是多个简单查询" class="headerlink" title="一个复杂查询还是多个简单查询"></a>一个复杂查询还是多个简单查询</h2><p>设计查询的时候需要考虑的问题是否需要将一个复杂的查询分成多个简单的查询。以往的逻辑认为网络通信查询解析和优化是一件代价很高的事情。<br>但是mysql并不适用，mysql从设计上让连接和断开都是很轻量级，返回一个小的查询结果方面很高效，现代的网络速度也比以前快很多。<br>不过在设计的时候如果一个查询能够胜任的时候还写成多个独立查询是不明智的。</p><h2 id="切分查询"><a href="#切分查询" class="headerlink" title="切分查询"></a>切分查询</h2><p>有时候对于一个大的查询需要分而治之，将大查询切分成小查询，每个查询功能完全一样，只完成一小部分，每次只返回一小部分查询结果。<br>例如删除一个月前的日志信息，数据量很大，可以分批次一次删除一万行数据，一般来说一万行数据是一个比较高效且对服务器影响也是最小的做法。同时需要注意的是每次删除之后暂停一会儿再做下次删除，将服务器压力分散到一个很长的时间中，可以大大降低服务器的影响，还可以减少删除时锁的持有时间。</p><h2 id="分解关联查询"><a href="#分解关联查询" class="headerlink" title="分解关联查询"></a>分解关联查询</h2><p>可以对每一个表进行一次单表查询，然后将结果在应用程序中进行关联。<br>分解关联查询的方式重构查询有如下优势：<br>1、让缓存的效率更高。<br>2、减少锁竞争。<br>3、在应用层做关联，可以容易对数据库进行拆分，更容易做到高性能和扩展。<br>4、查询本身效率也可能会有所提升。<br>5、可以减少冗余数据的查询。</p><h1 id="查询执行的基础"><a href="#查询执行的基础" class="headerlink" title="查询执行的基础"></a>查询执行的基础</h1><img src="/js/lazyload-plugin/loading.svg" data-original="/uploads/image/mysql-select-1.png"> <img src="/js/lazyload-plugin/loading.svg" data-original="/uploads/image/mysql-select-2.png"><h2 id="mysql客户单-服务器通信协议"><a href="#mysql客户单-服务器通信协议" class="headerlink" title="mysql客户单/服务器通信协议"></a>mysql客户单/服务器通信协议</h2><p>mysql客户单和服务器之间的通信协议是半双工的，这意味着在任何一个时刻，要么是由服务器向客户端发送数据，要么是由客户单向服务器发送数据，这两个动作不能同时发生。<br>客户端用一个单独的数据包将查询传给服务器，这也是为什么当查询的语句很长的时候，参数max_allowed_packet就特别重要了。一旦客户端发送请求就只能等待结果了。<br>相反的一般服务器响应给用户的数据通常很多，有多个数据包组成，当服务器开始响应客户端请求时，客户端必须完整的接受整个返回结果，而不能单独的只取前面的几条结果，然后让服务器停止发送请求。<br>mysql通常需要等所有的数据都已经发送给客户端才能释放这条查询所占用的资源，让查询早点结束可以早点释放响应的资源。</p><h3 id="查询状态"><a href="#查询状态" class="headerlink" title="查询状态"></a>查询状态</h3><p>对于一个mysql连接，或者说一个线程，任何时刻都有一个状态，该状态标识了mysql当前正在做什么。<br>show full processlist命令查看当前的状态。<br>Sleep<br>线程正在等待客户端发送新的请求。<br>Query<br>线程正在执行查询或者正在将结果发送给客户端。<br>Locked<br>在mysql服务器层，该线程正在等待表锁。<br>在存储引擎级别实现的锁，例如InnoDB的行锁并不会体现在线程状态中。<br>Analyzing and statistics<br>线程正在收集存储引擎的统计信息，并生成查询的执行计划。<br>Copying to tmp table [on disk]<br>线程正在执行查询，并且将结果集都复制到一个临时表中，这种状态一般要么是在做group by操作，要么是文件排序操作，或者是union操作。<br>如果这个状态后面还有 on disk 标记，那么标识mysql正在将一个内存临时表放到磁盘上。<br>Sorting result<br>线程正在对结果集进行排序。<br>Sending data<br>线程可能在多个状态之间传送数据，或者在生成结果集，或者在向客户端返回数据。<br>了解这些状态的含义非常有用，在一个繁忙的服务器上可能会看到大量的不正常的状态，例如statistics正占用大量的时间。通常表示某个地方有异常了。<br>可以看<a href="/2018/mysql-analysis.html">mysql服务器性能剖析</a>来诊断哪个环节出现问题了。</p><h2 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h2><p>如果查询缓存是打开的，mysql会优先检查这个查询是否命中查询缓存中的数据，这个检查是通过一个对大小写敏感的哈希查找实现的。<br>如果命中了查询缓存，在返回结果之前mysql会检查一次用户权限。</p><h2 id="查询优化处理"><a href="#查询优化处理" class="headerlink" title="查询优化处理"></a>查询优化处理</h2><h3 id="语法解析器和预处理"><a href="#语法解析器和预处理" class="headerlink" title="语法解析器和预处理"></a>语法解析器和预处理</h3><p>mysql通过关键字将sql语句进行解析，并生成一颗对应的解析树，mysql解析器将使用mysql语法规则验证和解析查询。预处理器则根据一些mysql规则进一部检查及解析树是否合法：表和数据列是否存在，别名是否有歧义，下一步预处理器会验证权限。</p><h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p>mysql使用基于成本的优化器，它会尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最小的一个。<br>可以通过查询当前回话的Last_query_cost的值来得知mysql计算当前查询的成本。<br>执行查询 select sql_no_cache count(*) from actor; 后执行 show status like ‘Last_query_cost’;<br>结果value值标识mysql的优化器任务大概需要做多少个数据页的随机查询才能完成上面的查询。<br>有多重原因导致mysql有乎其选择错误的执行计划，如下所示:<br>1、统计信息不准确。<br>2、执行计划汇总的成本估算不等同于实际执行的成本。<br>3、mysql最优可能和你像的最优不一样。<br>4、mysql从不考虑其他并发执行的查询，这可能会影响当前查询速度。<br>5、mysql不会考虑不收其控制的操作成本。例如存储过程或者用户自定义的函数的成本。<br>6、优化器有时候无法估算所有可能的执行计划，所以可能错过最优的执行几环。</p><h3 id="mysql如何执行关联查询"><a href="#mysql如何执行关联查询" class="headerlink" title="mysql如何执行关联查询"></a>mysql如何执行关联查询</h3><p>mysql认为任何一个查询都是一次“关联”，并不是一次查询需要两张表才叫关联查询。<br>对于union查询，mysql先将一系列的单个查询结果放到一个临时表中，然后重新读出临时表数据来完成union查询。<br>mysql任何关联都执行嵌套循环关联操作，即mysql先在一个表中循环取出单条数据，然后再嵌套循环到下一个表中寻找匹配的行，依次下去，直到找到所有表中匹配的行为止。<br>然后根据各个表匹配的行，返回查询中需要的各个列。</p><h3 id="执行计划"><a href="#执行计划" class="headerlink" title="执行计划"></a>执行计划</h3><p>mysql并不会生成查询字节码来执行查询。mysql生成查询的一颗指令树，然后通过存储引擎执行完成这棵指令树并返回结果，最终的执行计划包含了重构查询的全部信息。<br>如果对某个查询执行explain extended 后，在执行 show warnings 就可以看到重构出的查询。</p><h3 id="关联查询优化器"><a href="#关联查询优化器" class="headerlink" title="关联查询优化器"></a>关联查询优化器</h3><p>mysql优化器最重要的一部分就是关联查询优化，它决定了多个关联表时的顺序。通常多表关联查询的时候，可以有多重不同的关联顺序来获取相同的执行结果。<br>关联查询优化器则通过评估不同顺序时的成本来选择一个代价最小的关联顺序。<br>绝大多数情况下优化都是有效的，但因为不会去计算每一种关联顺序的成本，所以偶尔也会选择一个不是最优的执行计划。</p><h3 id="排序优化"><a href="#排序优化" class="headerlink" title="排序优化"></a>排序优化</h3><p>无论如何排序都是一个成本很高的操作，所以从性能考虑，尽可能避免排序或者尽可能避免大量数据进行排序。<br>当不能使用索引生成排序结果的时候，mysql需要自己进行排序，如果数据量小则在内存中进行，如果数据量大则需要使用磁盘，不过mysql将这个过程统一称为文件排序filesort，即使完全是内存排序。<br>mysql在进行排序的时候需要使用的临时存储空间可能会比想象的要大得多，因为mysql在排序时，对每一个排序记录都会分配一个足够长的定长空间来存放。<br>在关联查询的时候如果需要排序，mysql会分两种情况来处理这样的文件排序。如果order by子句中的所有列都来自关联的第一个表，那么在关联处理第一个表的时候就进行文件排序，如果是这样在explain中的结果会看到Using filesort，除此之外mysql都会先将关联的结果放到一个临时表中，等所有的关联都结束后，在进行文件排序，这样explain会看到 Using temporary;sing filesort。如果查询有limit，limit会在排序之后应用。</p><h2 id="查询执行引擎"><a href="#查询执行引擎" class="headerlink" title="查询执行引擎"></a>查询执行引擎</h2><p>在解析和优化阶段，mysql将生成查询对应的执行计划，mysql的查询执行引擎则根据这个执行计划来完成整个查询。这里执行计划是一个数据结构，而不是字节码。</p><h2 id="返回结果给客户端"><a href="#返回结果给客户端" class="headerlink" title="返回结果给客户端"></a>返回结果给客户端</h2><p>查询执行的最后一个阶段是将结果返回给客户端。即使没有结果也会返回一些信息比如影响到的行数。如果可以被缓存，mysql也会在这个阶段将结果放到查询缓存中。<br>mysql将结果集返回客户端是一个增量、逐步返回的过程。例如一个关联操作，一旦服务器处理完最后一个关联表，开始生成第一条结果时，mysql就可以开始向客户端逐步返回结果集了。<br>这样做的好处是：服务器无需存储太多的结果，而消耗太多内存。可以使用SQL_BUFFER_RESULT来影响整个行为。<br>结果集中的每一行都会以一个满足mysql通信协议的封包发送，再通过tcp协议进行传输，在tcp传输过程中，可能对mysql的封包进行缓存然后批量传输。</p><h1 id="mysql查询优化器的局限性"><a href="#mysql查询优化器的局限性" class="headerlink" title="mysql查询优化器的局限性"></a>mysql查询优化器的局限性</h1><p>mysql的万能“嵌套查询”并不是对每种查询都是最优的。</p><h2 id="关联子查询"><a href="#关联子查询" class="headerlink" title="关联子查询"></a>关联子查询</h2><p>mysql的子查询实现得非常糟糕。最糟糕的是where查询中包含in()的子查询语句，例如：<br>select <em>from film where film_id in(select film_id from actor where actor_id = 1);<br>mysql对in()列表中的选项有专门的优化策略，会把上面的查询改写成下面的样子：<br>select </em>from film where exists(select <em>from actor where actor_id=1 and actor.film_id=film.film_id);<br>这时mysql选择对file表进行全表扫描，然后根据返回的film_id逐个执行子查询，如果外层是个非常大的表，性能会非常糟糕。可以用下面的办法重写这个查询：<br>select film.</em> from film inner join actor using(film_id) where actorid =1</p><h2 id="union的限制"><a href="#union的限制" class="headerlink" title="union的限制"></a>union的限制</h2><p>mysql无法将限制条件从外层下推到内层，这使得原本能够限制部分返回结果的条件无法应用到内层查询的优化上。<br>例如：<br>(select name from actor order by name) union all (select name from customer order by name) limit 20;<br>上面这条语句会把两个表所有的记录房子啊一个临时表，然后再从临时表取出前20条。<br>可以改写如下：<br>(select name from actor order by name limit 20) union all (select name from customer order by name limit 20<br>) order by name limit 20;</p><h2 id="最大值和最小值优化"><a href="#最大值和最小值优化" class="headerlink" title="最大值和最小值优化"></a>最大值和最小值优化</h2><p>对于min() 和max()mysql优化做的并不好。例如：<br>select min(actor_id) from actor where name =‘penelope’;<br>因为name并没有索引，因此mysql将会进行一次全表扫描。如果mysql能够进行主键扫描那么理论上mysql读到第一个满足条件的记录的时候就是我们需要的最小值了，因为主键actor_id字段的大小顺序是排列的。<br>可以改写如下：<br>select actor_id from actor use index(primary) where name =‘penelope’ limit 1;</p><h2 id="并行执行"><a href="#并行执行" class="headerlink" title="并行执行"></a>并行执行</h2><p>mysql无法利用多核特性来并行执行查询。</p><h2 id="在同一个表上查询和更新"><a href="#在同一个表上查询和更新" class="headerlink" title="在同一个表上查询和更新"></a>在同一个表上查询和更新</h2><p>mysql不允许对同一张同时进行查询和更新。<br>如下图所示：<br><img src="/js/lazyload-plugin/loading.svg" data-original="/uploads/image/mysql-select-3.png"><br>可以改写成下图所示：<br><img src="/js/lazyload-plugin/loading.svg" data-original="/uploads/image/mysql-select-4.png"></p><h1 id="优化特定类型的查询"><a href="#优化特定类型的查询" class="headerlink" title="优化特定类型的查询"></a>优化特定类型的查询</h1><h2 id="优化count-查询"><a href="#优化count-查询" class="headerlink" title="优化count()查询"></a>优化count()查询</h2><p>ount(<em>)对行的数目进行计算，包含NULL<br>count(column)对特定的列的值具有的行数进行计算，不包含NULL值。<br>count()还有一种使用方式，count(1)这个用法和count(</em>)的结果是一样的。<br>性能问题<br>1.任何情况下SELECT COUNT(<em>) FROM tablename是最优选择；<br>2.尽量减少SELECT COUNT(</em>) FROM tablename WHERE COL = ‘value’ 这种查询；<br>3.杜绝SELECT COUNT(COL) FROM tablename WHERE COL2 = ‘value’ 的出现。<br>如果表没有主键，那么count（1）比count（<em>）快。<br>如果有主键，那么count（主键，联合主键）比count（</em>）快。<br>如果表只有一个字段，count（<em>）最快。count(1)跟count(主键)一样，只扫描主键。count(</em>)跟count(非主键)一样，扫描整个表。明显前者更快一些。</p><h2 id="优化关联查询"><a href="#优化关联查询" class="headerlink" title="优化关联查询"></a>优化关联查询</h2><p>1、确保on或者using子句中的列上有索引，在创建索引的时候就需要考虑到关联的顺序，当表A和表B用到c关联的时候，如果优化器的关联顺序是B、A，那么就不需要在B表的对应列上加索引，没用到的索引只会带俩额外的负担，只需要在关联顺序中的第二个表的相应列上创建索引。<br>2、确保任何的group by和order by中的表达式只涉及到一个表中的列，这样mysql才有可能使用索引来优化这个过程。<br>3、当升级mysql的时候要注意关联语法、运算符优先级等其他可能发生变化的地方。</p><h2 id="优化子查询"><a href="#优化子查询" class="headerlink" title="优化子查询"></a>优化子查询</h2><p>子查询优化给出的最重要的优化建议就是尽可能使用关联查询代替。</p><h2 id="优化group-by-和distinct"><a href="#优化group-by-和distinct" class="headerlink" title="优化group by 和distinct"></a>优化group by 和distinct</h2><p>如果有索引，它们都可以使用索引来优化，这也是最有效的优化办法。<br>如果没有索引的时候，group by 使用两种策略来完成：使用临时表或者文件排序来做分组。可以使用提示SQL_BIG_RESULT和SQL_SMALL_RESULT来让优化器按照你希望的方式运行。<br>在分组查询的select中直接使用非分组列通常都不是什么好主意。<br>如果没有通过order by子句显式的指定排序列，当查询使用group by子句的时候结果集会自动按照分组的字段进行排序，如果不关心结果集的顺序，则可以使用order by null让mysql不在进行排序。</p><h2 id="优化limit-分页"><a href="#优化limit-分页" class="headerlink" title="优化limit 分页"></a>优化limit 分页</h2><p>优化分页查询的一个最简单的办法就是尽可能地使用索引覆盖扫描，恶如不是查询所有的列。<br>例如下面的查询：<br>select film_id ,description from film order by title limit 50,5;<br>如果这个表非常大，最好改成下面的样子：<br>select film.film_id,film.description from film inner join (select film_id from film order by title limit 50,5) as lim using(film_id);<br>这里的延迟关联将大大提升查询效率，这个技术也可以优化关联查询中的limit子句。</p><h2 id="优化SQL-CALE-FOUND-ROWS"><a href="#优化SQL-CALE-FOUND-ROWS" class="headerlink" title="优化SQL_CALE_FOUND_ROWS"></a>优化SQL_CALE_FOUND_ROWS</h2><p>limit语句加上这个提示虽然可以获取分页的总数，但是mysql总会扫描所有满足条件的行，然后在抛弃不需要的行，该代价非常高。一个更好的设计师将页数换成下一页按钮，假设每页20条记录，那么每次查询时都用limit返回21条记录并只显示20条，如果21条存在那么显示下一页按钮否则不显示。<br>有时候也可以考虑使用 explain的结果中的rows列的值来作为结果集总数的近似值。</p><h2 id="优化union查询"><a href="#优化union查询" class="headerlink" title="优化union查询"></a>优化union查询</h2><p>mysql总是通过创建并填充临时表的方式来执行union查询。因此很多优化策略在union查询中都没法很好的使用，经常需要手工的将where、limit、order by等子句下推到union的各个子查询中，以便优化器可以充分利用这些条件尽心优化。除非切实需要服务器消除重复的行，否则就一定要使用union all，如果没有all关键字，mysql会给临时表加上distinct选项，会导致对整个临时表的数据做唯一性检查，代价非常高。</p><h2 id="静态查询分析"><a href="#静态查询分析" class="headerlink" title="静态查询分析"></a>静态查询分析</h2><p>percon toolkit 中的pt-query-advisor能够解析查询日志、分析查询模式、然后给出所有可能存在潜在问题的查询，并给出足够详细的建议，像是给mysql所有的查询做一次全面的健康检查。</p><p>参考<br>（1）《高性能MySQL》</p><script src="/js/lazyload-plugin/lazyload.intersectionObserver.min.js"></script></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong> iwyy</li><li class="post-copyright-link"><strong>本文链接：</strong> <a href="http://www.iwyy.top/2018/mysql-select.html" title="mysql查询性能优化">http://www.iwyy.top/2018/mysql-select.html</a></li><li class="post-copyright-license"><strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！</li></ul></div><footer class="post-footer"><div class="post-tags"><a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/mysql-index.html" rel="next" title="mysql高性能索引"><i class="fa fa-chevron-left"></i> mysql高性能索引</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="/uploads/m.jpg" alt="iwyy"><p class="site-author-name" itemprop="name">iwyy</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">8</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">3</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">3</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优化数据访问"><span class="nav-number">1.</span> <span class="nav-text">优化数据访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#是否请求了不需要的数据"><span class="nav-number">1.1.</span> <span class="nav-text">是否请求了不需要的数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql是否在扫描额外的记录"><span class="nav-number">1.2.</span> <span class="nav-text">mysql是否在扫描额外的记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫描的行数和访问类型"><span class="nav-number">1.3.</span> <span class="nav-text">扫描的行数和访问类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构查询方式"><span class="nav-number">2.</span> <span class="nav-text">重构查询方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个复杂查询还是多个简单查询"><span class="nav-number">2.1.</span> <span class="nav-text">一个复杂查询还是多个简单查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切分查询"><span class="nav-number">2.2.</span> <span class="nav-text">切分查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分解关联查询"><span class="nav-number">2.3.</span> <span class="nav-text">分解关联查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询执行的基础"><span class="nav-number">3.</span> <span class="nav-text">查询执行的基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql客户单-服务器通信协议"><span class="nav-number">3.1.</span> <span class="nav-text">mysql客户单/服务器通信协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询状态"><span class="nav-number">3.1.1.</span> <span class="nav-text">查询状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询缓存"><span class="nav-number">3.2.</span> <span class="nav-text">查询缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询优化处理"><span class="nav-number">3.3.</span> <span class="nav-text">查询优化处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法解析器和预处理"><span class="nav-number">3.3.1.</span> <span class="nav-text">语法解析器和预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询优化器"><span class="nav-number">3.3.2.</span> <span class="nav-text">查询优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql如何执行关联查询"><span class="nav-number">3.3.3.</span> <span class="nav-text">mysql如何执行关联查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行计划"><span class="nav-number">3.3.4.</span> <span class="nav-text">执行计划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联查询优化器"><span class="nav-number">3.3.5.</span> <span class="nav-text">关联查询优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序优化"><span class="nav-number">3.3.6.</span> <span class="nav-text">排序优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询执行引擎"><span class="nav-number">3.4.</span> <span class="nav-text">查询执行引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回结果给客户端"><span class="nav-number">3.5.</span> <span class="nav-text">返回结果给客户端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql查询优化器的局限性"><span class="nav-number">4.</span> <span class="nav-text">mysql查询优化器的局限性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关联子查询"><span class="nav-number">4.1.</span> <span class="nav-text">关联子查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#union的限制"><span class="nav-number">4.2.</span> <span class="nav-text">union的限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大值和最小值优化"><span class="nav-number">4.3.</span> <span class="nav-text">最大值和最小值优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行执行"><span class="nav-number">4.4.</span> <span class="nav-text">并行执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在同一个表上查询和更新"><span class="nav-number">4.5.</span> <span class="nav-text">在同一个表上查询和更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化特定类型的查询"><span class="nav-number">5.</span> <span class="nav-text">优化特定类型的查询</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化count-查询"><span class="nav-number">5.1.</span> <span class="nav-text">优化count()查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化关联查询"><span class="nav-number">5.2.</span> <span class="nav-text">优化关联查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化子查询"><span class="nav-number">5.3.</span> <span class="nav-text">优化子查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化group-by-和distinct"><span class="nav-number">5.4.</span> <span class="nav-text">优化group by 和distinct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化limit-分页"><span class="nav-number">5.5.</span> <span class="nav-text">优化limit 分页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化SQL-CALE-FOUND-ROWS"><span class="nav-number">5.6.</span> <span class="nav-text">优化SQL_CALE_FOUND_ROWS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化union查询"><span class="nav-number">5.7.</span> <span class="nav-text">优化union查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态查询分析"><span class="nav-number">5.8.</span> <span class="nav-text">静态查询分析</span></a></li></ol></li></ol></div></div></section><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span> <span class="with-love"><i class="fa fa-heart"></i> </span><span class="author" itemprop="copyrightHolder">iwyy</span></div><div class="powered-by">Powered by <a href="https://console.upyun.com/register/?invite=rJOaeBqVf" title="又拍云" target="_blank"><img src="/uploads/image/upyun_logo.png" alt="UPYUN"></a></div><span class="post-meta-divider">|</span><div class="theme-info"><span>Hosted by <a href="https://pages.coding.me" target="_blank">Coding Pages</a></span></div></div></footer></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script><script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script><script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script><script type="text/javascript" src="//cdn.bootcss.com/velocity/1.2.1/velocity.min.js"></script><script type="text/javascript" src="//cdn.bootcss.com/velocity/1.2.1/velocity.ui.min.js"></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/src/utils.js"></script><script type="text/javascript" src="/js/src/motion.js"></script><script type="text/javascript" src="/js/src/affix.js"></script><script type="text/javascript" src="/js/src/schemes/pisces.js"></script><script type="text/javascript" src="/js/src/scrollspy.js"></script><script type="text/javascript" src="/js/src/post-details.js"></script><script type="text/javascript" src="/js/src/bootstrap.js"></script><script type="text/javascript">// Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });</script><script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
