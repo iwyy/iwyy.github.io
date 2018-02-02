@@ -1,0 +1,723 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="google-site-verification" content="az36BCre_XxgT9qTSa9_eJwOM54MaIlKstfU0CO4FEI"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css"><link href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css"><link href="/css/main.css" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/uploads/image/logo180.png"><link rel="icon" type="image/png" sizes="32x32" href="/uploads/image/logo64.png"><link rel="icon" type="image/png" sizes="16x16" href="/uploads/image/logo64.png"><link rel="mask-icon" href="/uploads/image/logo300.svg" color="#222"><meta name="keywords" content="iwyy,java,spring,spring cloud,spring mvc,Java后端技术,微服务架构"><link rel="alternate" href="/atom.xml" title="iwyy's Blog" type="application/atom+xml"><meta property="og:type" content="website"><meta property="og:title" content="iwyy&#39;s Blog"><meta property="og:url" content="http://www.iwyy.top/categories/index.html"><meta property="og:site_name" content="iwyy&#39;s Blog"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2017-12-31T04:17:38.070Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="iwyy&#39;s Blog"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"6.0.0",sidebar:{position:"left",display:"always",offset:12,b2t:!0,scrollpercent:!0,onmobile:!1},fancybox:!0,fastclick:!0,lazyload:!0,tabs:!0,motion:{enable:!0,async:!0,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://www.iwyy.top/categories/"><title>表、栈和队列 | iwyy's Blog</title><script type="text/javascript">var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9af9ad7600513d41fd2b2ad6c4633785";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">iwyy's Blog</span> <span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description">Life is so beautiful</h1></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://www.iwyy.top/2017/list.html"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="iwyy"><meta itemprop="description" content=""><meta itemprop="image" content="/uploads/m.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="iwyy's Blog"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">表、栈和队列</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T19:33:00+08:00">2017-12-22</time> </span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h1 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h1><p>抽象数据类型(abstract data type,ADT)是带有一组操作的对象的集合。<br>对于集合ADT，可以有添加、删除、包含等操作</p><h1 id="表ADT"><a href="#表ADT" class="headerlink" title="表ADT"></a>表ADT</h1><h2 id="简单数组实现"><a href="#简单数组实现" class="headerlink" title="简单数组实现"></a>简单数组实现</h2><p>对表的所有操作都可以通过使用数组来实现。虽然数组是有固定容量创建的，但在需要的时候可以使用双倍的容量创建一个不同的数组。<br>许多情形下表是通过在末端进行插入操作的，然后只对数组访问。这种情形下数组是一种恰当的实现。然而如果发生一些插入和删除操作，特别是前端进行，那么数组不是一种好的选择。</p><h2 id="简单链表"><a href="#简单链表" class="headerlink" title="简单链表"></a>简单链表</h2><p>为了避免插入和删除的线性开销，需要保证表可以不连续存储，否则表的每个部分都可能需要整体移动。<br>链表是由一系列的节点组成，这些节点不必在内存中相连，每个节点含有表元素和到包含该元素后继元素的节点的链，可以称之为next链，最后一个单元的next链引用null。<br>简单链表删除最后一项比较复杂，因为必须找出指向最后节点的项，把它的next链改成null，然后在更新持有最后节点的链，最好的做法是让每一个节点有一个指向它在表中的前面节点的链称之为双链表<br><a id="more"></a></p><h1 id="java-Collection-API中的表"><a href="#java-Collection-API中的表" class="headerlink" title="java Collection API中的表"></a>java Collection API中的表</h1><h2 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h2><p>Collection接口扩展了Iterable接口，实现Iterable接口的类拥有增强for循环，都可以使用forEach进行循环遍历<br></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterable</span>&lt;<span class="title">E</span>&gt; </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>; </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</span><br><span class="line">    <span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>; </span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p>
+<h2 id="Iterator接口"><a href="#Iterator接口" class="headerlink" title="Iterator接口"></a>Iterator接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public interface Iterator&lt;E&gt; &#123;</span><br><span class="line">    boolean hasNext();</span><br><span class="line">    E next();</span><br><span class="line">    default void remove() &#123;</span><br><span class="line">        throw new UnsupportedOperationException(&quot;remove&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Iterator的remove方法主要优点在于：Collection的remove方法必须先找出需要删除的项。<br>在迭代集合时Collection的remove会抛出ConcurrentModificationException</p>
+<h3 id="增强for循环"><a href="#增强for循环" class="headerlink" title="增强for循环"></a>增强for循环</h3><p>java中的增强for循环实际上编译器会重写成如下所示：<br></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="string">"abc"</span>);</span><br><span class="line"><span class="keyword">for</span> (String s : list) &#123;</span><br><span class="line">    System.out.println(s);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//等同于上面增强for循环写法</span></span><br><span class="line">Iterator&lt;String&gt; it = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">    String s = it.next();</span><br><span class="line">    System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p>
+<h2 id="List接口、ArrayList类和LinkedList类"><a href="#List接口、ArrayList类和LinkedList类" class="headerlink" title="List接口、ArrayList类和LinkedList类"></a>List接口、ArrayList类和LinkedList类</h2><p>1、ArrayList类提供了list ADT的一种可增长数组的实现，其优点在于对get和set的调用花费常数时间，其缺点是插入和删除代价昂贵（除了在末端进行）。<br>2、LinkedList类提供了list ADT的双链表实现，其优点是插入和删除均开销很小，在表的前端和末端添加和删除都是常数时间的操作，其缺点是不容易索引，get的调用是昂贵的（除了get第一个和最后一个）。<br>3、对搜索而言，ArrayList和LinkedList都是低效的，对Collection的contains和remove方法的调用均花费线性时间。<br>4、ArrayList中有个容量的概念，它标识基础数组的大小，在需要的时候会自动扩容保证至少具有表的大小，如果早期知道该大小，可以设置容量足够大的量以避免数组容量以后的扩展，trimToSize可以在所有的ArrayList添加操作完成之后使用以避免浪费空间。<br>5、以下方法对于LinkedList操作整个程序线性时间不是二次时间，对于ArrayList是二次时间，因为对于ArrayList即使迭代器位于需要被删除的节点上，其remove方法仍然是昂贵的，因为数组的项必须要移动<br></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(List&lt;Integer&gt; list)</span> </span>&#123;</span><br><span class="line">        Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (iterator.next() % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p></p>
+<h2 id="ListIterator接口"><a href="#ListIterator接口" class="headerlink" title="ListIterator接口"></a>ListIterator接口</h2><p>ListIterator扩展了Iterator接口。<br>1、iterator可以应用于所有的集合，Set、List和Map以及这些集合的子类型。而ListIterator只能用于List及其子类型。<br>2、ListIterator有hasPrevious()和previous()方法，可以实现逆向遍历，但是iterator不可以。<br>3、ListIterator可以定位当前索引的位置，nextIndex()和previousIndex()可以实现。Iterator没有此功能。<br>4、ListIterator有add方法，可以向List中添加对象，而Iterator不能。<br>5、ListIterator可以实现对象的修改，set()方法可以实现。Iterator仅能遍历，不能实现修改。都可以实现删除操作。<br>用例：它可以用来从List的所有的偶数中减去1，对于LinkedList来说，不适用ListIterator的set方法是很难做到的。</p>
+<h2 id="简单的ArrayList类的实现"><a href="#简单的ArrayList类的实现" class="headerlink" title="简单的ArrayList类的实现"></a>简单的ArrayList类的实现</h2><p>只供参考理解，编译器会报错<br></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyArrayList</span>&lt;<span class="title">AnyType</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">AnyType</span>&gt;  </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> theSize;  </span><br><span class="line">    <span class="keyword">private</span> AnyType[] theItems;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> theSize;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> size() == <span class="number">0</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">//调整容量符合大小  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">trimToSize</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        ensureCapacity(size());  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">//确保数组大小足够大  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">(<span class="keyword">int</span> newCapacity)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(newCapacity &lt; theSize)  </span><br><span class="line">            <span class="keyword">return</span>;  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">//复制数据到新数组中  </span></span><br><span class="line">        AnyType[] old = theItems;  </span><br><span class="line">        theItems = (AnyType[]) <span class="keyword">new</span> Object[newCapacity];  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;size(); i++)  </span><br><span class="line">        &#123;  </span><br><span class="line">            theItems[i] = old[i];  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> AnyType <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || index &gt;= size())  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException();  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> theItems[index];  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> AnyType <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, AnyType newVal)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || index &gt;= size())  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException();  </span><br><span class="line">        &#125;  </span><br><span class="line">        AnyType old = theItems[index];  </span><br><span class="line">        theItems[index] = newVal;  </span><br><span class="line">        <span class="keyword">return</span> old;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, AnyType x)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//数组不够大，则扩大数组  </span></span><br><span class="line">        <span class="keyword">if</span>(theItems.length == size())  </span><br><span class="line">        &#123;  </span><br><span class="line">            ensureCapacity(size()*<span class="number">2</span> + <span class="number">1</span>);  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//从index开始，元素往后移动一位  </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = theSize; i &gt; index; i--)  </span><br><span class="line">        &#123;  </span><br><span class="line">            theItems[i] = theItems[i - <span class="number">1</span>];  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//index位置赋值x  </span></span><br><span class="line">        theItems[index] = x;  </span><br><span class="line">        theSize++;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> AanyType <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        AnyType removedItem = theItems[index];  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = index; i &lt; size(); i++)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="comment">//从index位置开始，所有元素都往前移动一位  </span></span><br><span class="line">            theItems[i] = theItems[i + <span class="number">1</span>];  </span><br><span class="line">        &#125;  </span><br><span class="line">        theSize--;  </span><br><span class="line">        <span class="keyword">return</span> removedItem;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">public</span> java.util.<span class="function">Iterator&lt;AnyType&gt; <span class="title">iterator</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayListIterator&lt;AnyType&gt;();  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayListIterator</span>&lt;<span class="title">AnyType</span>&gt; <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">util</span>.<span class="title">Iterator</span>&lt;<span class="title">AnyType</span>&gt;  </span></span><br><span class="line"><span class="class">    </span>&#123;  </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> current = <span class="number">0</span>;  </span><br><span class="line">          </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">        </span>&#123;  </span><br><span class="line">            <span class="keyword">return</span> current &lt; MyArrayList.<span class="keyword">this</span>.size();  </span><br><span class="line">        &#125;  </span><br><span class="line">          </span><br><span class="line">        <span class="function"><span class="keyword">public</span> AnyType <span class="title">next</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">        </span>&#123;  </span><br><span class="line">            <span class="keyword">return</span> MyArrayList.<span class="keyword">this</span>.theItems[current++];  </span><br><span class="line">        &#125;  </span><br><span class="line">          </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">        </span>&#123;  </span><br><span class="line">            <span class="comment">//防止迭代器的remove与MyArrayList的remove冲突  </span></span><br><span class="line">            MyArrayList.<span class="keyword">this</span>.remove(--current);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure><p></p>
+<h2 id="简单的LinkedList类的实现"><a href="#简单的LinkedList类的实现" class="headerlink" title="简单的LinkedList类的实现"></a>简单的LinkedList类的实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyLinkedList</span> &lt;<span class="title">AnyType</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">AnyType</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> theSize;    <span class="comment">//双向链表中的元素个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> modCount;    <span class="comment">//这个标记为了配合Iterator实现修改的保护，这一点后面专做论述,凡是做了增删修改，这个标记均变化</span></span><br><span class="line">    <span class="keyword">private</span> Node&lt;AnyType&gt; beginMarker;    <span class="comment">// 双向链表的开始标记</span></span><br><span class="line">    <span class="keyword">private</span> Node&lt;AnyType&gt; endMarker;    <span class="comment">//双向链表的尾部标记</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyLinkedList</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 构造函数 先初始化双向聊表 调动 clear()函数</span></span><br><span class="line">        clear();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;<span class="comment">// 确保双向链表处于空的状态 ----&gt; 我们使用一个辅助的头结点</span></span><br><span class="line">        <span class="comment">// 头标记和尾标记 指向同一个 辅助头结点,和一个辅助的尾节点</span></span><br><span class="line">        beginMarker = <span class="keyword">new</span> Node&lt;AnyType&gt;(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        endMarker   = <span class="keyword">new</span> Node&lt;AnyType&gt;(<span class="keyword">null</span>, beginMarker, <span class="keyword">null</span>);</span><br><span class="line">        beginMarker.next = endMarker;</span><br><span class="line">        </span><br><span class="line">        theSize = <span class="number">0</span>;</span><br><span class="line">        modCount ++;    <span class="comment">//zhege</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取元素的个数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> theSize;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> theSize == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 增删查改的操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">// 默认把元素插入到尾部,其中调用插入到指定位置的函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(AnyType x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        add(size()+<span class="number">1</span>, x);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 把元素插入到指定位置，其中调用插入到指定元素之前 函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> idx, AnyType x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        addBefore(getNode(idx), x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 重置某个节点的data值，并返回以前的 data值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AnyType <span class="title">set</span><span class="params">(<span class="keyword">int</span> idx, AnyType newVal)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(idx &lt;<span class="number">1</span> || idx &gt;size())</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="keyword">new</span> Exception(<span class="string">"下表越界"</span>));</span><br><span class="line">        Node&lt;AnyType&gt; p = getNode(idx);</span><br><span class="line">        AnyType oldVal = p.data;</span><br><span class="line">        p.data = newVal;</span><br><span class="line">        <span class="keyword">return</span> oldVal;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 删除第idx个节点,调用remove(Node)函数，返回删除节点的data值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AnyType <span class="title">remove</span><span class="params">(<span class="keyword">int</span> idx)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(idx &lt;<span class="number">1</span> || idx &gt;size())</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="keyword">new</span> Exception(<span class="string">"下表越界"</span>));</span><br><span class="line">        <span class="keyword">return</span> remove(getNode(idx));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 下面这些函数都是一些private的都是位别的一些函数服务的</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">// 在p前面插入 x 元素</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addBefore</span><span class="params">(Node&lt;AnyType&gt;p, AnyType x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Node&lt;AnyType&gt; newNode = <span class="keyword">new</span> Node&lt;AnyType&gt;(x, p.prev, p);</span><br><span class="line">        newNode.prev.next = newNode;</span><br><span class="line">        p.prev = newNode;</span><br><span class="line">        theSize ++;        <span class="comment">//添加进来一个新元素之后，别忘了元素个数++</span></span><br><span class="line">        modCount ++;    <span class="comment">//无论增删 该标志 均++</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取 idx处的 节点引用</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node&lt;AnyType&gt; <span class="title">getNode</span><span class="params">(<span class="keyword">int</span> idx)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(idx &lt; <span class="number">1</span> || idx &gt; size()+<span class="number">1</span>)<span class="comment">// 考虑在尾部插入的情况，如果取这个尾节点，其data = null</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="keyword">new</span> Exception(<span class="string">"索引越界"</span>));</span><br><span class="line">        Node&lt;AnyType&gt; p = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>( idx &lt;= size()/<span class="number">2</span>)    <span class="comment">// 在前半边中找</span></span><br><span class="line">        &#123;</span><br><span class="line">            p = beginMarker.next;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; idx; i++)</span><br><span class="line">                p = p.next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;    <span class="comment">//在后半边中找</span></span><br><span class="line">            p = endMarker;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = size(); i &gt;= idx; i--)</span><br><span class="line">                p = p.prev;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回 删除某个节点，并返回这个节点的data值</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> AnyType <span class="title">remove</span><span class="params">(Node&lt;AnyType&gt; p)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        p.prev.next = p.next;</span><br><span class="line">        p.next.prev = p.prev;</span><br><span class="line">        theSize --;</span><br><span class="line">        modCount --;</span><br><span class="line">        <span class="keyword">return</span> p.data;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 实现迭代器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator&lt;AnyType&gt; <span class="title">iterator</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LinkedListIterator();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实现迭代器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedListIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">AnyType</span>&gt;</span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Node&lt;AnyType&gt; current = beginMarker.next;    <span class="comment">//记住当前的位置，这和书序表中类似</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> expectedModCount = modCount;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> okToRemove = <span class="keyword">false</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">            <span class="keyword">return</span> current!=endMarker;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> AnyType <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 注意了 下面的 保护迭代期间 不允许 越过迭代器修改集合元素的 机制 是精髓</span></span><br><span class="line">            <span class="keyword">if</span>(modCount != expectedModCount)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="keyword">new</span> Exception(<span class="string">"您刚刚越过迭代器修改了集合元素"</span>));</span><br><span class="line">            <span class="keyword">if</span>(!hasNext())</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="keyword">new</span> Exception(<span class="string">"已经没有元素了"</span>));</span><br><span class="line">                </span><br><span class="line">            AnyType nextItem = current.data;</span><br><span class="line">            current = current.next;</span><br><span class="line">            okToRemove = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">return</span> nextItem;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">            <span class="keyword">if</span>(modCount != expectedModCount)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="keyword">new</span> Exception(<span class="string">"您刚刚越过迭代器修改了集合元素"</span>));</span><br><span class="line">            <span class="keyword">if</span>(!okToRemove)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="keyword">new</span> Exception(<span class="string">"先next再删除"</span>));</span><br><span class="line">            </span><br><span class="line">            MyLinkedList.<span class="keyword">this</span>.remove(current.prev);</span><br><span class="line">            okToRemove = <span class="keyword">false</span>;    <span class="comment">// 与next()中的 okToRemove = false； 遥相呼应，以确保必须在next()之后才能remove</span></span><br><span class="line">            expectedModCount ++;    </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 私有嵌套类的形式，定义内部节点，节点里面没有访问双向链表中的内容，所以使用私有嵌套类可也</span></span><br><span class="line"><span class="comment">     * 如果访问了外面类的属性或者方法就只能使用内部类，去除static关键字,内部类的使用主要是为了可以简写，见单链表中的介绍</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">AnyType</span>&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// 构造函数</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(AnyType d, Node&lt;AnyType&gt;p, Node&lt;AnyType&gt;n)</span> </span>&#123;</span><br><span class="line">            data = d; prev = p; next = n;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">public</span> AnyType data;</span><br><span class="line">        <span class="keyword">public</span> Node&lt;AnyType&gt; prev;</span><br><span class="line">        <span class="keyword">public</span> Node&lt;AnyType&gt; next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>栈(stack)是限制插入和删除只能在一个位置上进行的表，该位置是表的末端，叫做栈的顶端(top),对栈的操作有push(进栈)和pop(出栈)，前者相对于插入，后者相对于删除最后插入的元素。<br>栈有时又叫做LIFO(后进先出)表。</p>
+<h2 id="栈的实现"><a href="#栈的实现" class="headerlink" title="栈的实现"></a>栈的实现</h2><p>由于栈是一个表，任何实现表的方法都能实现栈，ArrayList和LinkedList都支持栈操作</p>
+<h2 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h2><p>简单例子：<br>平衡符号：编译器检查程序的语法错误<br>叙述如下：做一个空栈，读入字符知道文件结尾，如果字符是个开放符号则将其推入栈中，如果是个封闭符号则当栈空时报错，否则将栈元素弹出，如果弹出的符号不是对应的开放符号则报错，在文件结尾如果栈非空则报错。</p>
+<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>队列也是表，使用队列时，插入在一段，删除则在另一端。<br>队列的基本操作是enqueue(入队)，它在表的末端插入元素，和dequeue(出队)，它删除并返回在表的开头的元素</p>
+<h2 id="队列的实现"><a href="#队列的实现" class="headerlink" title="队列的实现"></a>队列的实现</h2><p>如果栈的情形一样，对于队列而言任何的表的实现都是合法的</p>
+<h2 id="队列的应用"><a href="#队列的应用" class="headerlink" title="队列的应用"></a>队列的应用</h2><p>窗口买票的应用等所有需要先进先出的案例</p><script src="/js/lazyload-plugin/lazyload.intersectionObserver.min.js"></script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    iwyy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.iwyy.top/2017/list.html" title="表、栈和队列">http://www.iwyy.top/2017/list.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+		  <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/tree.html" rel="next" title="树">
+                <i class="fa fa-chevron-left"></i> 树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/hash.html" rel="prev" title="散列">
+                散列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/m.jpg" alt="iwyy">
+            
+              <p class="site-author-name" itemprop="name">iwyy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ADT"><span class="nav-number">1.</span> <span class="nav-text">ADT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表ADT"><span class="nav-number">2.</span> <span class="nav-text">表ADT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单数组实现"><span class="nav-number">2.1.</span> <span class="nav-text">简单数组实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单链表"><span class="nav-number">2.2.</span> <span class="nav-text">简单链表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java-Collection-API中的表"><span class="nav-number">3.</span> <span class="nav-text">java Collection API中的表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection接口"><span class="nav-number">3.1.</span> <span class="nav-text">Collection接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator接口"><span class="nav-number">3.2.</span> <span class="nav-text">Iterator接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增强for循环"><span class="nav-number">3.2.1.</span> <span class="nav-text">增强for循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List接口、ArrayList类和LinkedList类"><span class="nav-number">3.3.</span> <span class="nav-text">List接口、ArrayList类和LinkedList类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ListIterator接口"><span class="nav-number">3.4.</span> <span class="nav-text">ListIterator接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的ArrayList类的实现"><span class="nav-number">3.5.</span> <span class="nav-text">简单的ArrayList类的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的LinkedList类的实现"><span class="nav-number">3.6.</span> <span class="nav-text">简单的LinkedList类的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#栈"><span class="nav-number">4.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的实现"><span class="nav-number">4.1.</span> <span class="nav-text">栈的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的应用"><span class="nav-number">4.2.</span> <span class="nav-text">栈的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#队列"><span class="nav-number">5.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的实现"><span class="nav-number">5.1.</span> <span class="nav-text">队列的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的应用"><span class="nav-number">5.2.</span> <span class="nav-text">队列的应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span> <span class="with-love"><i class="fa fa-heart"></i> </span><span class="author" itemprop="copyrightHolder">iwyy</span></div><div class="theme-info" style="display:block"><a href="http://www.miitbeian.gov.cn/" title="备案信息" target="_blank">京ICP备18006703号-1</a></div><div class="powered-by">Powered by <a href="https://console.upyun.com/register/?invite=rJOaeBqVf" title="又拍云" target="_blank"><img src="/uploads/image/upyun_logo.png" alt="UPYUN"></a></div><span class="post-meta-divider">|</span><div class="theme-info"><span>Hosted by <a href="https://pages.coding.me" target="_blank">Coding Pages</a></span></div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.2.1/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.2.1/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js"></script>
+<script type="text/javascript" src="/js/src/post-details.js"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
