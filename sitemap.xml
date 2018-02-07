@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.iwyy.top/2017/list.html</loc>
+    
+    <lastmod>2018-02-07T14:48:20.381Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.iwyy.top/2018/mysql-classic-case.html</loc>
     
     <lastmod>2018-02-07T12:05:50.731Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>http://www.iwyy.top/2017/priority-queue.html</loc>
     
     <lastmod>2018-02-07T12:04:11.842Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.iwyy.top/2017/list.html</loc>
-    
-    <lastmod>2018-02-07T12:02:08.158Z</lastmod>
     
   </url>
   
