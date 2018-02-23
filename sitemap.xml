@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.iwyy.top/2018/mysql-select.html</loc>
+    
+    <lastmod>2018-02-23T08:37:38.637Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.iwyy.top/2018/article-1.html</loc>
     
     <lastmod>2018-02-23T07:28:36.399Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://www.iwyy.top/2018/mysql-index.html</loc>
     
     <lastmod>2018-02-07T12:05:49.073Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.iwyy.top/2018/mysql-select.html</loc>
-    
-    <lastmod>2018-02-07T12:05:46.482Z</lastmod>
     
   </url>
   
