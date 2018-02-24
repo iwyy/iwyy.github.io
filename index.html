@@ -642,7 +642,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.iwyy.top/2017/tree.html">
+    <link itemprop="mainEntityOfPage" href="http://www.iwyy.top/2017/list.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="iwyy">
@@ -661,7 +661,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/tree.html" itemprop="url">树</a></h2>
+                <a class="post-title-link" href="/2017/list.html" itemprop="url">表、栈和队列</a></h2>
         
 
         <div class="post-meta">
@@ -732,11 +732,10 @@
 
       
         
-          <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>二叉树(binary tree)是一棵树，其中每个节点都不能有多余两个的子节点。<br>二叉树的一个性质是一颗平均二叉树的深度要比节点个数N小得多，这个性质有时候很重要。</p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>因为一个二叉树节点最多有两个子节点，所以可以保存直接链接到它们的链。树节点的声明在结构上类似于双链表的声明，在声明中，节点就是有element的信息加上两个到其他节点的引用(left和right)组成的结构<br></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinaryNode</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    Object element;</span><br><span class="line">    BinaryNode left;</span><br><span class="line">    BinaryNode right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p>
-<h2 id="例子：表达式树"><a href="#例子：表达式树" class="headerlink" title="例子：表达式树"></a>例子：表达式树</h2><p>表达式树的树叶是操作数，比如：常数或者变量名，而其他的节点为操作符。由于所有的操作都是二元的，因此这棵树正好是二叉树。如下图：<br><img src="/uploads/image/tree-1.png"><br>
+          <h1 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h1><p>抽象数据类型(abstract data type,ADT)是带有一组操作的对象的集合。<br>对于集合ADT，可以有添加、删除、包含等操作</p><h1 id="表ADT"><a href="#表ADT" class="headerlink" title="表ADT"></a>表ADT</h1><h2 id="简单数组实现"><a href="#简单数组实现" class="headerlink" title="简单数组实现"></a>简单数组实现</h2><p>对表的所有操作都可以通过使用数组来实现。虽然数组是有固定容量创建的，但在需要的时候可以使用双倍的容量创建一个不同的数组。<br>许多情形下表是通过在末端进行插入操作的，然后只对数组访问。这种情形下数组是一种恰当的实现。然而如果发生一些插入和删除操作，特别是前端进行，那么数组不是一种好的选择。</p><h2 id="简单链表"><a href="#简单链表" class="headerlink" title="简单链表"></a>简单链表</h2><p>为了避免插入和删除的线性开销，需要保证表可以不连续存储，否则表的每个部分都可能需要整体移动。<br>链表是由一系列的节点组成，这些节点不必在内存中相连，每个节点含有表元素和到包含该元素后继元素的节点的链，可以称之为next链，最后一个单元的next链引用null。<br>简单链表删除最后一项比较复杂，因为必须找出指向最后节点的项，把它的next链改成null，然后在更新持有最后节点的链，最好的做法是让每一个节点有一个指向它在表中的前面节点的链称之为双链表<br>
           
           </p><div class="post-button text-center">
-            <a class="btn" href="/2017/tree.html" rel="contents">
+            <a class="btn" href="/2017/list.html" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
