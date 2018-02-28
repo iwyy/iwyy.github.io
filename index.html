@@ -642,7 +642,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.iwyy.top/2017/list.html">
+    <link itemprop="mainEntityOfPage" href="http://www.iwyy.top/2017/hash.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="iwyy">
@@ -661,7 +661,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/list.html" itemprop="url">表、栈和队列</a></h2>
+                <a class="post-title-link" href="/2017/hash.html" itemprop="url">散列</a></h2>
         
 
         <div class="post-meta">
@@ -732,10 +732,10 @@
 
       
         
-          <h1 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h1><p>抽象数据类型(abstract data type,ADT)是带有一组操作的对象的集合。<br>对于集合ADT，可以有添加、删除、包含等操作</p><h1 id="表ADT"><a href="#表ADT" class="headerlink" title="表ADT"></a>表ADT</h1><h2 id="简单数组实现"><a href="#简单数组实现" class="headerlink" title="简单数组实现"></a>简单数组实现</h2><p>对表的所有操作都可以通过使用数组来实现。虽然数组是有固定容量创建的，但在需要的时候可以使用双倍的容量创建一个不同的数组。<br>许多情形下表是通过在末端进行插入操作的，然后只对数组访问。这种情形下数组是一种恰当的实现。然而如果发生一些插入和删除操作，特别是前端进行，那么数组不是一种好的选择。</p><h2 id="简单链表"><a href="#简单链表" class="headerlink" title="简单链表"></a>简单链表</h2><p>为了避免插入和删除的线性开销，需要保证表可以不连续存储，否则表的每个部分都可能需要整体移动。<br>链表是由一系列的节点组成，这些节点不必在内存中相连，每个节点含有表元素和到包含该元素后继元素的节点的链，可以称之为next链，最后一个单元的next链引用null。<br>简单链表删除最后一项比较复杂，因为必须找出指向最后节点的项，把它的next链改成null，然后在更新持有最后节点的链，最好的做法是让每一个节点有一个指向它在表中的前面节点的链称之为双链表<br>
+          <h1 id="散列"><a href="#散列" class="headerlink" title="散列"></a>散列</h1><p>散列表的实现常常叫做散列(hashing)。散列是一种用于以常数平均时间执行插入、删除和查找的技术。但是，那些需要元素间任何排序信息的树操作将不会得到有效的支持。</p><h1 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h1><p>散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p><h1 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h1><p>给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。<br>所有散列函数都有如下一个基本特性：如果两个散列值是不相同的（根据同一函数），那么这两个散列值的原始输入也是不相同的。这个特性是散列函数具有确定性的结果。但另一方面，散列函数的输入和输出不是一一对应的，如果两个散列值相同，两个输入值很可能是相同的，但不绝对肯定二者一定相等（可能出现哈希碰撞）。输入一些数据计算出散列值，然后部分改变输入值，一个具有强混淆特性的散列函数会产生一个完全不同的散列值。<br>
           
           </p><div class="post-button text-center">
-            <a class="btn" href="/2017/list.html" rel="contents">
+            <a class="btn" href="/2017/hash.html" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
