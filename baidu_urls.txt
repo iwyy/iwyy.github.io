@@ -1,4 +1,4 @@
-http://www.iwyy.top/2018/mysql-table的副本.html
+http://www.iwyy.top/2018/spring-boot-config.html
 http://www.iwyy.top/2018/mysql-table.html
 http://www.iwyy.top/2018/article-1.html
 http://www.iwyy.top/2018/mysql-transaction.html

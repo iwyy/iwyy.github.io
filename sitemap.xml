@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.iwyy.top/2018/mysql-table%E7%9A%84%E5%89%AF%E6%9C%AC.html</loc>
+    <loc>http://www.iwyy.top/2018/spring-boot-config.html</loc>
     
-    <lastmod>2018-03-01T01:02:28.566Z</lastmod>
+    <lastmod>2018-03-01T08:45:54.300Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.iwyy.top/2018/article-1.html</loc>
+    
+    <lastmod>2018-03-01T05:54:40.547Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>http://www.iwyy.top/2018/mysql-select.html</loc>
     
     <lastmod>2018-02-24T06:46:06.506Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.iwyy.top/2018/article-1.html</loc>
-    
-    <lastmod>2018-02-23T07:28:36.399Z</lastmod>
     
   </url>
   
