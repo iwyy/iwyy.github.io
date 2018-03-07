@@ -3,6 +3,26 @@
 
 
     
+  <url>
+    <loc>http://www.iwyy.top/2018/mysql-transaction.html</loc>
+    <lastmod>2018-03-07T15:11:01.515Z</lastmod>
+    <data>
+        <display>
+        <title>mysql事务</title>
+        <pubTime>2018-02-08T13:52:51.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="sql" url="http://www.iwyy.top/categories/sql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
     
   <url>
@@ -92,26 +112,6 @@
         <display>
         <title>mysql查询性能优化</title>
         <pubTime>2018-01-31T13:52:51.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-         
-           
-             
-              <breadCrumb title="sql" url="http://www.iwyy.top/categories/sql/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.iwyy.top/2018/mysql-transaction.html</loc>
-    <lastmod>2018-02-09T07:49:11.520Z</lastmod>
-    <data>
-        <display>
-        <title>mysql事物隔离级别和传播行为</title>
-        <pubTime>2018-02-08T13:52:51.000Z</pubTime>
         
         <tag>mysql</tag>
          
